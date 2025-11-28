@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fator R Pro | Sistema Tributário</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Minimalista -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-calculator"></i>
+                <span>Fator R Pro</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="login-card">
+                <div class="card-header">
+                    <h1>Acesso ao Sistema</h1>
+                    <p>Entre para gerenciar cálculos tributários</p>
+                </div>
+
+                <form class="login-form" id="loginForm">
+                    <div class="input-group">
+                        <input type="email" placeholder="Email profissional" required>
+                        <i class="fas fa-envelope"></i>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" placeholder="Senha" required>
+                        <i class="fas fa-lock"></i>
+                    </div>
+
+                    <button type="submit" class="login-btn">
+                        <span class="btn-text">Continuar</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="divider">
+                    <span>ou</span>
+                </div>
+
+                <button class="client-btn" onclick="showClientAccess()">
+                    <i class="fas fa-building"></i>
+                    Acesso Cliente
+                </button>
+
+                <div class="security-notice">
+                    <i class="fas fa-shield-check"></i>
+                    <span>Sistema seguro e criptografado</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer Minimalista -->
+        <footer class="footer">
+            <p>Precisa de ajuda? <a href="mailto:suporte@contabilidade.com">suporte@contabilidade.com</a></p>
+        </footer>
+    </div>
+
+    <!-- Modal Acesso Cliente -->
+    <div class="modal" id="clientModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeClientAccess()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-header">
+                <h2>Acesso Cliente</h2>
+                <p>Informe os dados da empresa</p>
+            </div>
+
+            <form class="client-form">
+                <div class="input-group">
+                    <input type="text" placeholder="CNPJ" required>
+                    <i class="fas fa-id-card"></i>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" placeholder="Data de Nascimento" required>
+                    <i class="fas fa-calendar"></i>
+                </div>
+
+                <button type="submit" class="client-access-btn">
+                    Acessar Área do Cliente
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
