@@ -1,100 +1,424 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <!-- Define o conjunto de caracteres da página -->
     <meta charset="UTF-8">
+
+    <!-- Ajusta o layout para dispositivos mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fator R Pro | Sistema Tributário</title>
+
+    <!-- Título exibido na aba do navegador -->
+    <title>Fator R Pro | Sistema Tributário Inteligente</title>
+
+    <!-- Importa ícones do Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Fonte Inter do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Importa o CSS principal do projeto -->
     <link rel="stylesheet" href="style.css">
+<script src="usuarios.js"></script>
+
+    <!-- Ícone da aba do navegador -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+    <!-- Animação de fundo decorativa -->
+    <div class="background-animation"></div>
+    
     <div class="container">
-        <!-- Header Minimalista -->
+        <!-- ===========================
+             HEADER (CABEÇALHO)
+        ============================ -->
         <header class="header">
-            <div class="logo">
-                <i class="fas fa-calculator"></i>
-                <span>Fator R Pro</span>
+            <div class="header-content">
+
+                <!-- Logo + Nome do sistema -->
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+
+                    <div class="logo-text">
+                        <h1>Fator R <span class="logo-highlight">Pro</span></h1>
+                        <p class="logo-subtitle">Sistema Tributário Inteligente</p>
+                    </div>
+                </div>
+                
+                <!-- Informações rápidas do topo -->
+                <div class="header-info">
+                    <div class="info-item">
+                        <i class="fas fa-lock"></i>
+                        <span>SSL Seguro</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-bolt"></i>
+                        <span>Conectado</span>
+                    </div>
+                </div>
+
             </div>
         </header>
 
-        <!-- Main Content -->
+        <!-- ===========================
+             CONTEÚDO PRINCIPAL
+        ============================ -->
         <main class="main-content">
-            <div class="login-card">
-                <div class="card-header">
-                    <h1>Acesso ao Sistema</h1>
-                    <p>Entre para gerenciar cálculos tributários</p>
-                </div>
+            <div class="login-wrapper">
 
-                <form class="login-form" id="loginForm">
-                    <div class="input-group">
-                        <input type="email" placeholder="Email profissional" required>
-                        <i class="fas fa-envelope"></i>
+                <!-- Card de Login -->
+                <div class="login-card">
+                    <div class="card-header">
+                        <div class="welcome-badge">
+                            <i class="fas fa-door-open"></i>
+                            Área Restrita
+                        </div>
+
+                        <h2>Acesso ao Sistema</h2>
+                        <p class="subtitle">Entre com suas credenciais para acessar o painel de gestão tributária</p>
                     </div>
 
-                    <div class="input-group">
-                        <input type="password" placeholder="Senha" required>
-                        <i class="fas fa-lock"></i>
+                    <!-- Formulário de login -->
+                    <form class="login-form" id="loginForm">
+
+                        <!-- Campo Email -->
+                        <div class="form-group">
+                            <label for="email">
+                                <i class="fas fa-envelope"></i>
+                                Email Profissional
+                            </label>
+
+                            <div class="input-container">
+                                <input type="email" id="email" placeholder="seu.email@empresa.com" required>
+                                <div class="input-actions">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Campo Senha -->
+                        <div class="form-group">
+                            <label for="password">
+                                <i class="fas fa-key"></i>
+                                Senha de Acesso
+                            </label>
+
+                            <div class="input-container">
+                                <input type="password" id="password" placeholder="••••••••" required>
+
+                                <!-- Botão para mostrar/ocultar senha -->
+                                <div class="input-actions">
+                                    <button type="button" class="toggle-password" onclick="togglePassword()">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Links auxiliares abaixo da senha -->
+                            <div class="password-helper">
+                                <a href="#" class="forgot-link">Esqueceu a senha?</a>
+
+                                <span class="security-level">
+                                    <i class="fas fa-shield-alt"></i>
+                                    Segurança Alta
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Opção: manter conectado -->
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                                Manter conectado
+                            </label>
+                        </div>
+
+                        <!-- Botão principal de login -->
+                        <button type="submit" class="login-btn">
+                            <span class="btn-content">
+                                <span class="btn-text">Acessar Sistema</span>
+                                <i class="fas fa-arrow-right-to-bracket"></i>
+                            </span>
+
+                            <!-- Animação de carregamento -->
+                            <div class="btn-loading">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </button>
+                    </form>
+
+                    <!-- Divisor estilizado -->
+                    <div class="divider-section">
+                        <div class="divider-line"></div>
+                        <span class="divider-text">Acesso Alternativo</span>
+                        <div class="divider-line"></div>
                     </div>
 
-                    <button type="submit" class="login-btn">
-                        <span class="btn-text">Continuar</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                </form>
+                    <!-- Botões de acesso alternativo (cliente e parceiro) -->
+                    <div class="alternative-access">
 
-                <div class="divider">
-                    <span>ou</span>
+                        <!-- Acesso Cliente -->
+                        <button class="client-access-btn" onclick="showClientAccess()">
+                            <div class="client-btn-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+
+                            <div class="client-btn-content">
+                                <strong>Acesso Cliente</strong>
+                                <small>Área restrita para empresas</small>
+                            </div>
+
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        
+                        <!-- Acesso Parceiro -->
+                        <button class="partner-access-btn">
+                            <div class="partner-btn-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+
+                            <div class="partner-btn-content">
+                                <strong>Acesso Parceiro</strong>
+                                <small>Contadores e consultores</small>
+                            </div>
+
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Banner de segurança -->
+                    <div class="security-banner">
+                        <div class="security-icon">
+                            <i class="fas fa-shield-check"></i>
+                        </div>
+
+                        <div class="security-info">
+                            <h4>Sistema Criptografado</h4>
+                            <p>Conformidade com LGPD e segurança de dados de nível bancário</p>
+                        </div>
+                    </div>
+
                 </div>
 
-                <button class="client-btn" onclick="showClientAccess()">
-                    <i class="fas fa-building"></i>
-                    Acesso Cliente
-                </button>
+                <!-- Cards informativos ao lado do login -->
+                <div class="login-side-info">
 
-                <div class="security-notice">
-                    <i class="fas fa-shield-check"></i>
-                    <span>Sistema seguro e criptografado</span>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Processamento Rápido</h3>
+                        <p>Cálculos tributários em tempo real com precisão de 99,9%</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h3>Relatórios Detalhados</h3>
+                        <p>Análises completas e sugestões de otimização fiscal</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-cloud-arrow-up"></i>
+                        </div>
+                        <h3>Backup Automático</h3>
+                        <p>Seus dados protegidos com backup diário na nuvem</p>
+                    </div>
                 </div>
+
             </div>
         </main>
 
-        <!-- Footer Minimalista -->
+        <!-- ===========================
+             FOOTER (RODAPÉ)
+        ============================ -->
         <footer class="footer">
-            <p>Precisa de ajuda? <a href="mailto:suporte@contabilidade.com">suporte@contabilidade.com</a></p>
+            <div class="footer-content">
+
+                <!-- Contatos de suporte -->
+                <div class="footer-section">
+                    <h4>Suporte Técnico</h4>
+                    <p><i class="fas fa-headset"></i> (11) 9999-9999</p>
+                    <p><i class="fas fa-envelope"></i> suporte@fatorrpro.com.br</p>
+                </div>
+                
+                <!-- Horários -->
+                <div class="footer-section">
+                    <h4>Horário de Atendimento</h4>
+                    <p>Segunda a Sexta: 8h às 18h</p>
+                    <p>Sábado: 9h às 12h</p>
+                </div>
+                
+                <!-- Certificações -->
+                <div class="footer-section">
+                    <h4>Conformidade</h4>
+                    <div class="compliance-badges">
+                        <span class="badge"><i class="fas fa-check"></i> LGPD</span>
+                        <span class="badge"><i class="fas fa-check"></i> SSL</span>
+                        <span class="badge"><i class="fas fa-check"></i> ISO 27001</span>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Fator R Pro - Sistema Tributário Inteligente. Todos os direitos reservados.</p>
+
+                <!-- Links do rodapé -->
+                <div class="footer-links">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Documentação</a>
+                </div>
+            </div>
         </footer>
     </div>
 
-    <!-- Modal Acesso Cliente -->
-    <div class="modal" id="clientModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeClientAccess()">
-                <i class="fas fa-times"></i>
-            </button>
-            
+    <!-- ===========================
+         MODAL DE ACESSO CLIENTE
+    ============================ -->
+    <div class="modal-overlay" id="clientModal">
+        <div class="modal-container">
+
+            <!-- Cabeçalho do modal -->
             <div class="modal-header">
-                <h2>Acesso Cliente</h2>
-                <p>Informe os dados da empresa</p>
+                <div class="modal-title">
+
+                    <div class="modal-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+
+                    <div>
+                        <h2>Acesso Área Cliente</h2>
+                        <p>Informe os dados da empresa para acessar</p>
+                    </div>
+                </div>
+
+                <!-- Botão para fechar o modal -->
+                <button class="modal-close" onclick="closeClientAccess()">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
 
-            <form class="client-form">
-                <div class="input-group">
-                    <input type="text" placeholder="CNPJ" required>
-                    <i class="fas fa-id-card"></i>
-                </div>
+            <!-- Conteúdo do modal -->
+            <div class="modal-content">
+                <div class="client-form-wrapper">
 
-                <div class="input-group">
-                    <input type="text" placeholder="Data de Nascimento" required>
-                    <i class="fas fa-calendar"></i>
-                </div>
+                    <!-- Indicador de etapas -->
+                    <div class="form-step-indicator">
+                        <div class="step active">
+                            <span class="step-number">1</span>
+                            <span class="step-label">Dados da Empresa</span>
+                        </div>
 
-                <button type="submit" class="client-access-btn">
-                    Acessar Área do Cliente
-                </button>
-            </form>
+                        <div class="step-line"></div>
+
+                        <div class="step">
+                            <span class="step-number">2</span>
+                            <span class="step-label">Validação</span>
+                        </div>
+                    </div>
+
+                    <!-- Formulário do cliente -->
+                    <form class="client-form" id="clientForm">
+
+                        <!-- Campo CNPJ -->
+                        <div class="form-group">
+                            <label for="cnpj">
+                                <i class="fas fa-id-card"></i>
+                                CNPJ da Empresa
+                            </label>
+
+                            <div class="input-container">
+                                <input type="text" id="cnpj" placeholder="00.000.000/0000-00" required>
+
+                                <!-- Botão para consultar o CNPJ -->
+                                <div class="input-actions">
+                                    <button type="button" class="search-cnpj" onclick="searchCNPJ()">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Campo Data de nascimento -->
+                        <div class="form-group">
+                            <label for="birthdate">
+                                <i class="fas fa-calendar-alt"></i>
+                                Data de Nascimento do Sócio
+                            </label>
+
+                            <div class="input-container">
+                                <input type="text" id="birthdate" placeholder="DD/MM/AAAA" required>
+                            </div>
+                        </div>
+
+                        <!-- Campo código de acesso -->
+                        <div class="form-group">
+                            <label for="accessCode">
+                                <i class="fas fa-ticket"></i>
+                                Código de Acesso
+                                <span class="optional">(opcional)</span>
+                            </label>
+
+                            <div class="input-container">
+                                <input type="text" id="accessCode" placeholder="XXXX-XXXX-XXXX">
+
+                                <!-- Dica sobre o código de acesso -->
+                                <div class="input-actions">
+                                    <button type="button" class="help-btn" title="Código fornecido pelo seu contador">
+                                        <i class="fas fa-question-circle"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botões do formulário -->
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary" onclick="closeClientAccess()">
+                                Cancelar
+                            </button>
+
+                            <button type="submit" class="btn-primary">
+                                <span class="btn-content">
+                                    Continuar para Validação
+                                    <i class="fas fa-arrow-right"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Área de ajuda dentro do modal -->
+                    <div class="client-help">
+                        <div class="help-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+
+                        <div class="help-content">
+                            <h4>Precisa de ajuda?</h4>
+                            <p>Entre em contato com nosso suporte para recuperar seu acesso</p>
+
+                            <a href="mailto:clientes@fatorrpro.com.br" class="help-link">
+                                <i class="fas fa-envelope"></i>
+                                clientes@fatorrpro.com.br
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
 
+    <!-- Container para exibição de notificações -->
+    <div id="notifications"></div>
+
+    <!-- Script JS -->
     <script src="script.js"></script>
 </body>
 </html>

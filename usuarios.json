@@ -1,0 +1,101 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Administrador do Sistema",
+      "email": "admin@fatorrpro.com",
+      "usuario": "admin.pro",
+      "senha": "Admin@2024",
+      "perfil": "administrador",
+      "departamento": "TI",
+      "cargo": "Administrador Geral",
+      "ativo": true,
+      "data_cadastro": "2024-01-01",
+      "acessos": ["dashboard", "relatorios", "configuracoes", "usuarios", "fiscal", "contabilidade", "rh", "clientes"]
+    },
+    {
+      "id": 2,
+      "nome": "Carlos Eduardo Silva",
+      "email": "carlos.contador@fatorrpro.com",
+      "usuario": "carlos.contador",
+      "senha": "Contador@123",
+      "perfil": "contador",
+      "departamento": "Contabilidade",
+      "cargo": "Contador Sênior",
+      "ativo": true,
+      "data_cadastro": "2024-01-15",
+      "acessos": ["dashboard", "relatorios", "clientes", "fiscal", "contabilidade"]
+    },
+    {
+      "id": 3,
+      "nome": "Mariana Santos Oliveira",
+      "email": "mariana.fiscal@fatorrpro.com",
+      "usuario": "mariana.fiscal",
+      "senha": "Fiscal@456",
+      "perfil": "analista_fiscal",
+      "departamento": "Fiscal",
+      "cargo": "Analista Fiscal Pleno",
+      "ativo": true,
+      "data_cadastro": "2024-01-20",
+      "acessos": ["dashboard", "fiscal", "notas", "relatorios_fiscais"]
+    },
+    {
+      "id": 4,
+      "nome": "Roberto Lima Costa",
+      "email": "roberto.gerente@fatorrpro.com",
+      "usuario": "roberto.gerente",
+      "senha": "Gerente@789",
+      "perfil": "gerente",
+      "departamento": "Administração",
+      "cargo": "Gerente Administrativo",
+      "ativo": true,
+      "data_cadastro": "2024-02-01",
+      "acessos": ["dashboard", "relatorios", "equipe", "financeiro", "performance"]
+    },
+    {
+      "id": 5,
+      "nome": "Ana Beatriz Fernandes",
+      "email": "ana.rh@fatorrpro.com",
+      "usuario": "ana.rh",
+      "senha": "RH@101112",
+      "perfil": "rh",
+      "departamento": "Recursos Humanos",
+      "cargo": "Analista de RH",
+      "ativo": true,
+      "data_cadastro": "2024-02-05",
+      "acessos": ["dashboard", "funcionarios", "folha_pagamento", "beneficios"]
+    },
+    {
+      "id": 6,
+      "nome": "Tech Solutions LTDA",
+      "email": "contato@techsolutions.com.br",
+      "usuario": "tech.cliente",
+      "senha": "Cliente@2024",
+      "perfil": "cliente",
+      "empresa": "Tech Solutions LTDA",
+      "cnpj": "12.345.678/0001-99",
+      "ativo": true,
+      "data_cadastro": "2024-02-10",
+      "acessos": ["dashboard_cliente", "meus_documentos", "relatorios_cliente", "suporte"]
+    },
+    {
+      "id": 7,
+      "nome": "Contabilidade Excelência",
+      "email": "parceiro@excelenciacontabil.com.br",
+      "usuario": "excelencia.parceiro",
+      "senha": "Parceiro@1314",
+      "perfil": "parceiro",
+      "empresa": "Contabilidade Excelência",
+      "cnpj": "98.765.432/0001-00",
+      "ativo": true,
+      "data_cadastro": "2024-02-12",
+      "acessos": ["dashboard_parceiro", "clientes_parceiro", "relatorios_parceiro", "suporte"]
+    }
+  ],
+  "metadata": {
+    "total_usuarios": 7,
+    "data_criacao": "2024-02-21",
+    "versao": "1.0",
+    "empresa": "Fator R Pro Sistema Tributário"
+  }
+}

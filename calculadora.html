@@ -1,1406 +1,728 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Fator R | Fator R Pro</title>
+    <title>Fator R Pro | Sistema Premium de Cálculo Tributário</title>
+    
+    <!-- Meta Tags Otimizadas -->
+    <meta name="description" content="Sistema profissional para cálculo do Fator R do Simples Nacional. Otimização tributária com precisão e análise avançada.">
+    <meta name="keywords" content="Fator R, Simples Nacional, cálculo tributário, contabilidade, otimização fiscal, anexo III, anexo V">
+    <meta name="author" content="Contabilizatech">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Fator R Pro | Sistema Tributário Premium">
+    <meta property="og:description" content="Calcule e otimize seu Fator R no Simples Nacional com precisão profissional.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fatorrpro.com">
+    
+    <!-- Preconnect para Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fontes Premium -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <style>
-        :root {
-            --primary: #1a73e8;
-            --primary-dark: #1669d6;
-            --secondary: #34a853;
-            --warning: #f9ab00;
-            --danger: #ea4335;
-            --dark: #202124;
-            --gray-600: #5f6368;
-            --gray-400: #9aa0a6;
-            --gray-200: #dadce0;
-            --gray-100: #f1f3f4;
-            --gray-50: #f8f9fa;
-            --white: #ffffff;
-            --border-radius: 12px;
-            --shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="calculadora.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--gray-50);
-            color: var(--dark);
-            line-height: 1.6;
-        }
-
-        .app-container {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            min-height: 100vh;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            background: var(--dark);
-            color: var(--white);
-            position: fixed;
-            width: 280px;
-            height: 100vh;
-        }
-
-        .logo-area {
-            padding: 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 24px;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .nav-item.active {
-            background: rgba(26, 115, 232, 0.2);
-            color: var(--white);
-            border-left: 3px solid var(--primary);
-        }
-
-        /* Conteúdo Principal */
-        .main-content {
-            grid-column: 2;
-            padding: 0;
-        }
-
-        .header {
-            background: var(--white);
-            padding: 24px 32px;
-            border-bottom: 1px solid var(--gray-200);
-        }
-
-        .page-info h1 {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        /* Layout da Calculadora */
-        .calculator-layout {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 32px;
-            display: grid;
-            grid-template-columns: 1fr 450px;
-            gap: 32px;
-        }
-
-        /* Card de Entrada Melhorado */
-        .input-card {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            padding: 32px;
-            box-shadow: var(--shadow);
-        }
-
-        .card-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        /* Métodos de Entrada */
-        .input-methods {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .method-btn {
-            flex: 1;
-            padding: 16px;
-            border: 2px solid var(--gray-200);
-            border-radius: 8px;
-            background: var(--white);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .method-btn.active {
-            border-color: var(--primary);
-            background: var(--primary-light);
-        }
-
-        .method-btn i {
-            font-size: 20px;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        /* Campos de Entrada Elaborados */
-        .input-section {
-            margin-bottom: 32px;
-        }
-
-        .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--gray-100);
-        }
-
-        .input-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            margin-bottom: 8px;
-            color: var(--dark);
-        }
-
-        .info-icon {
-            color: var(--gray-400);
-            cursor: help;
-        }
-
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 16px 50px 16px 16px;
-            border: 2px solid var(--gray-200);
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            background: var(--white);
-            text-align: right;
-            font-family: 'Inter', monospace;
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
-        }
-
-        .currency-symbol {
-            position: absolute;
-            right: 16px;
-            color: var(--gray-600);
-            font-weight: 500;
-        }
-
-        .input-helper {
-            font-size: 12px;
-            color: var(--gray-600);
-            margin-top: 4px;
-        }
-
-        /* Área de Upload */
-        .upload-area {
-            border: 2px dashed var(--gray-300);
-            border-radius: 8px;
-            padding: 40px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: var(--gray-50);
-        }
-
-        .upload-area:hover {
-            border-color: var(--primary);
-            background: var(--primary-light);
-        }
-
-        .upload-icon {
-            font-size: 48px;
-            color: var(--gray-400);
-            margin-bottom: 16px;
-        }
-
-        /* Botão Calcular */
-        .calculate-btn {
-            width: 100%;
-            padding: 18px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-
-        .calculate-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-
-        /* Card de Resultado Melhorado */
-        .result-card {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            padding: 32px;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 32px;
-        }
-
-        .result-header {
-            text-align: center;
-            margin-bottom: 32px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--gray-200);
-        }
-
-        .fator-r-value {
-            font-size: 52px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .fator-r-label {
-            font-size: 14px;
-            color: var(--gray-600);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        .anexo-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 24px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 14px;
-            margin-top: 16px;
-        }
-
-        .anexo-iii {
-            background: rgba(52, 168, 83, 0.1);
-            color: var(--secondary);
-            border: 2px solid var(--secondary);
-        }
-
-        .anexo-v {
-            background: rgba(234, 67, 53, 0.1);
-            color: var(--danger);
-            border: 2px solid var(--danger);
-        }
-
-        /* Detalhes do Resultado */
-        .result-details {
-            margin-bottom: 24px;
-        }
-
-        .detail-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 0;
-            border-bottom: 1px solid var(--gray-100);
-        }
-
-        .detail-item:last-child {
-            border-bottom: none;
-        }
-
-        .detail-label {
-            color: var(--gray-600);
-            font-size: 14px;
-        }
-
-        .detail-value {
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .highlight {
-            color: var(--primary);
-            font-size: 18px;
-        }
-
-        /* Análise e Recomendações */
-        .analysis-section {
-            background: var(--gray-50);
-            border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 24px;
-        }
-
-        .analysis-title {
-            font-weight: 600;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 16px;
-        }
-
-        .analysis-text {
-            color: var(--gray-600);
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-
-        .recommendations {
-            margin-top: 16px;
-        }
-
-        .recommendation-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 12px;
-            background: var(--white);
-            border-radius: 6px;
-            margin-bottom: 8px;
-            border-left: 4px solid var(--primary);
-        }
-
-        .recommendation-icon {
-            color: var(--primary);
-            margin-top: 2px;
-        }
-
-        .success { color: var(--secondary); }
-        .warning { color: var(--warning); }
-        .danger { color: var(--danger); }
-
-        /* Ações */
-        .action-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 24px;
-        }
-
-        .btn {
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-dark);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--gray-300);
-            color: var(--gray-700);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-success {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: var(--secondary-dark);
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            padding: 24px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        /* Loading */
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--gray-200);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 16px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Dados Extraídos */
-        .extracted-data {
-            background: var(--gray-50);
-            border-radius: 8px;
-            padding: 16px;
-            margin-top: 16px;
-            border-left: 4px solid var(--primary);
-        }
-
-        .data-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .data-item:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Responsivo */
-        @media (max-width: 1024px) {
-            .calculator-layout {
-                grid-template-columns: 1fr;
-            }
-            
-            .result-card {
-                position: static;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .app-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .sidebar {
-                display: none;
-            }
-            
-            .main-content {
-                grid-column: 1;
-            }
-            
-            .calculator-layout {
-                padding: 20px;
-            }
-            
-            .input-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .action-buttons {
-                grid-template-columns: 1fr;
-            }
-            
-            .input-methods {
-                flex-direction: column;
-            }
-        }
-    </style>
 </head>
+
 <body>
+    <!-- Container Principal -->
     <div class="app-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo-area">
-                <div class="logo">
-                    <i class="fas fa-calculator"></i>
-                    <span>Fator R Pro</span>
+        
+        <!-- Header Premium -->
+        <header class="site-header" role="banner">
+            <div class="header-container">
+                <!-- Logo e Marca -->
+                <div class="brand-section">
+                    <div class="logo-container">
+                        <img src="Avatar (6).png" 
+                             alt="Logo Fator R Pro - Contabilizatech" 
+                             class="logo"
+                             width="48"
+                             height="48"
+                             loading="eager">
+                        <div class="logo-glow" aria-hidden="true"></div>
+                    </div>
+                    
+                    <div class="brand-content">
+                        <h1 class="brand-name">
+                            <span class="brand-main">FATOR R</span>
+                            <span class="brand-pro">PRO</span>
+                        </h1>
+                        <p class="brand-tagline">
+                            <i class="fas fa-bolt" aria-hidden="true"></i>
+                            SISTEMA TRIBUTÁRIO PREMIUM
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Status do Sistema -->
+                <div class="system-status">
+                    <div class="status-indicators">
+                        <div class="status-item">
+                            <span class="status-dot active" aria-label="Sistema operacional"></span>
+                            <span class="status-text">Sistema Ativo</span>
+                        </div>
+                        
+                        <div class="status-item">
+                            <i class="fas fa-shield-alt status-icon" aria-hidden="true"></i>
+                            <span class="status-text">Segurança Máxima</span>
+                        </div>
+                    </div>
+                    
+                  
                 </div>
             </div>
-            <nav>
-                <a href="index.html" class="nav-item">
-                    <i class="fas fa-chart-line"></i>
-                    Dashboard
-                </a>
-                <a href="calculadora.html" class="nav-item active">
-                    <i class="fas fa-calculator"></i>
-                    Calculadora
-                </a>
-                <a href="clientes.html" class="nav-item">
-                    <i class="fas fa-users"></i>
-                    Clientes
-                </a>
-            </nav>
-        </aside>
+            
+            <div class="header-accent" aria-hidden="true"></div>
+        </header>
 
         <!-- Conteúdo Principal -->
-        <main class="main-content">
-            <header class="header">
-                <div class="page-info">
-                    <h1>Calculadora do Fator R</h1>
-                    <p style="color: var(--gray-600);">Cálculo preciso com recomendações personalizadas</p>
-                </div>
-            </header>
-
+        <main class="main-content" id="mainContent">
             <div class="calculator-layout">
-                <!-- Entrada de Dados -->
-                <div class="input-card">
-                    <div class="card-title">
-                        <i class="fas fa-calculator"></i>
-                        Dados para Cálculo
-                    </div>
-
-                    <!-- Métodos de Entrada -->
-                    <div class="input-methods">
-                        <div class="method-btn active" data-method="manual">
-                            <i class="fas fa-keyboard"></i>
-                            Manual
-                        </div>
-                        <div class="method-btn" data-method="upload" onclick="abrirUpload()">
-                            <i class="fas fa-file-upload"></i>
-                            Importar Extrato
-                        </div>
-                    </div>
-
-                    <!-- Entrada Manual -->
-                    <div class="input-section">
-                        <div class="section-title">Dados Financeiros</div>
-                        <div class="input-grid">
-                            <div class="input-group">
-                                <label class="input-label">
-                                    Receita Bruta (12 meses)
-                                    <i class="fas fa-info-circle info-icon" title="Soma da receita bruta dos últimos 12 meses"></i>
-                                </label>
-                                <div class="input-wrapper">
-                                    <input type="text" class="input-field" id="receitaInput" placeholder="0,00" inputmode="decimal">
-                                    <span class="currency-symbol">R$</span>
+                <!-- Painel de Entrada -->
+                <section class="input-panel" aria-labelledby="inputPanelTitle">
+                    <article class="panel-card">
+                        <header class="panel-header">
+                            <div class="panel-title-section">
+                                <h2 id="inputPanelTitle" class="panel-title">
+                                    <i class="fas fa-chart-line" aria-hidden="true"></i>
+                                    Calculadora do Fator R
+                                </h2>
+                                <div class="panel-subtitle">
+                                    <p>Insira os dados financeiros para análise tributária avançada</p>
                                 </div>
-                                <div class="input-helper">Digite o valor (ex: 30.000,00)</div>
+                            </div>
+                            
+                            <div class="panel-actions">
+                                <button class="btn-help" aria-label="Ajuda sobre o cálculo do Fator R">
+                                    <i class="fas fa-question-circle"></i>
+                                    <span class="tooltip">O Fator R é calculado pela divisão da folha de pagamento pela receita bruta dos últimos 12 meses</span>
+                                </button>
+                            </div>
+                        </header>
+
+                        <!-- Métodos de Entrada -->
+                        <div class="input-methods" role="tablist" aria-label="Métodos de entrada de dados">
+                            <button type="button" 
+                                    class="method-card method-active" 
+                                    id="tabManual"
+                                    role="tab"
+                                    aria-selected="true"
+                                    aria-controls="manualPanel"
+                                    onclick="selecionarMetodo('manual')">
+                                <div class="method-icon" aria-hidden="true">
+                                    <i class="fas fa-keyboard"></i>
+                                </div>
+                                <div class="method-content">
+                                    <h3 class="method-title">Manual</h3>
+                                    <p class="method-description">
+                                        Insira valores diretamente
+                                    </p>
+                                </div>
+                            </button>
+
+                            <button type="button"
+                                    class="method-card"
+                                    id="tabImport"
+                                    role="tab"
+                                    aria-selected="false"
+                                    aria-controls="importPanel"
+                                    onclick="abrirModalUpload()">
+                                <div class="method-icon" aria-hidden="true">
+                                    <i class="fas fa-file-upload"></i>
+                                </div>
+                                <div class="method-content">
+                                    <h3 class="method-title">Importar</h3>
+                                    <p class="method-description">
+                                        Carregue extrato do Simples
+                                    </p>
+                                </div>
+                            </button>
+
+                            <button type="button"
+                                    class="method-card"
+                                    id="tabExample"
+                                    role="tab"
+                                    aria-selected="false"
+                                    aria-controls="examplePanel"
+                                    onclick="carregarExemploProfissional()">
+                                <div class="method-icon" aria-hidden="true">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <div class="method-content">
+                                    <h3 class="method-title">Exemplo</h3>
+                                    <p class="method-description">
+                                        Veja um caso prático
+                                    </p>
+                                </div>
+                            </button>
+                        </div>
+
+                        <!-- Formulário de Dados -->
+                        <div class="data-form" id="manualPanel" role="tabpanel" aria-labelledby="tabManual">
+                            <div class="form-header">
+                                <h3 class="form-title">
+                                    <i class="fas fa-file-invoice-dollar" aria-hidden="true"></i>
+                                    Dados Financeiros (Últimos 12 Meses)
+                                </h3>
+                                <div class="form-subtitle">
+                                    Valores acumulados do período de referência
+                                </div>
+                            </div>
+                            
+                            <div class="form-grid">
+                                <!-- Receita Bruta -->
+                                <div class="form-group">
+                                    <label for="inputReceita" class="form-label">
+                                        <i class="fas fa-money-bill-wave" aria-hidden="true"></i>
+                                        Receita Bruta Total
+                                        <span class="required-indicator" aria-hidden="true">*</span>
+                                    </label>
+                                    <div class="input-container">
+                                        <span class="currency">R$</span>
+                                        <input type="text"
+                                               id="inputReceita"
+                                               class="form-input"
+                                               inputmode="decimal"
+                                               pattern="[0-9,.]*"
+                                               placeholder="0,00"
+                                               aria-describedby="receitaHelp"
+                                               aria-required="true"
+                                               required
+                                               oninput="formatarMoeda(this)"
+                                               onfocus="highlightInput(this)">
+                                        <button type="button" 
+                                                class="input-clear"
+                                                aria-label="Limpar valor da receita"
+                                                onclick="limparCampo('inputReceita')">
+                                            <i class="fas fa-times" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <div id="receitaHelp" class="form-help">
+                                        <i class="fas fa-info-circle" aria-hidden="true"></i>
+                                        Soma total das receitas brutas dos últimos 12 meses
+                                    </div>
+                                </div>
+
+                                <!-- Folha de Pagamento -->
+                                <div class="form-group">
+                                    <label for="inputFolha" class="form-label">
+                                        <i class="fas fa-users" aria-hidden="true"></i>
+                                        Folha de Pagamento
+                                        <span class="required-indicator" aria-hidden="true">*</span>
+                                    </label>
+                                    <div class="input-container">
+                                        <span class="currency">R$</span>
+                                        <input type="text"
+                                               id="inputFolha"
+                                               class="form-input"
+                                               inputmode="decimal"
+                                               pattern="[0-9,.]*"
+                                               placeholder="0,00"
+                                               aria-describedby="folhaHelp"
+                                               aria-required="true"
+                                               required
+                                               oninput="formatarMoeda(this)"
+                                               onfocus="highlightInput(this)">
+                                        <button type="button"
+                                                class="input-clear"
+                                                aria-label="Limpar valor da folha"
+                                                onclick="limparCampo('inputFolha')">
+                                            <i class="fas fa-times" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <div id="folhaHelp" class="form-help">
+                                        <i class="fas fa-info-circle" aria-hidden="true"></i>
+                                        Inclui salários, pró-labore, INSS e FGTS dos últimos 12 meses
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-note">
+                                <i class="fas fa-lightbulb" aria-hidden="true"></i>
+                                <span>Os valores devem refletir o período completo de 12 meses consecutivos</span>
+                            </div>
+                        </div>
+
+                        <!-- Botão de Cálculo -->
+                        <div class="action-section">
+                            <button type="button"
+                                    class="calculate-button"
+                                    id="btnCalcular"
+                                    onclick="calcularFatorR()"
+                                    aria-label="Calcular Fator R com os dados inseridos"
+                                    disabled>
+                                <div class="button-content">
+                                    <i class="fas fa-calculator" aria-hidden="true"></i>
+                                    <span class="button-text">Calcular Fator R</span>
+                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                </div>
+                                <div class="button-subtitle">Análise tributária avançada</div>
+                            </button>
+                        </div>
+
+                        <!-- Dados Extraídos (Oculto por padrão) -->
+                        <div class="extracted-data" id="extractedData" hidden>
+                            <div class="data-header">
+                                <div class="data-header-icon">
+                                    <i class="fas fa-file-contract" aria-hidden="true"></i>
+                                </div>
+                                <div class="data-header-content">
+                                    <h4 class="data-title">Dados Extraídos do Documento</h4>
+                                    <div class="data-subtitle">Informações processadas automaticamente</div>
+                                </div>
+                            </div>
+                            
+                            <div class="data-grid">
+                                <div class="data-item">
+                                    <div class="data-label">
+                                        <i class="fas fa-chart-line" aria-hidden="true"></i>
+                                        Receita Bruta
+                                    </div>
+                                    <div class="data-value" id="extraidoReceita">--</div>
+                                </div>
+                                <div class="data-item">
+                                    <div class="data-label">
+                                        <i class="fas fa-user-tie" aria-hidden="true"></i>
+                                        Folha de Pagamento
+                                    </div>
+                                    <div class="data-value" id="extraidoFolha">--</div>
+                                </div>
+                                <div class="data-item">
+                                    <div class="data-label">
+                                        <i class="fas fa-percentage" aria-hidden="true"></i>
+                                        Fator R Calculado
+                                    </div>
+                                    <div class="data-value" id="extraidoFatorR">--</div>
+                                </div>
+                                <div class="data-item">
+                                    <div class="data-label">
+                                        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                                        Período de Referência
+                                    </div>
+                                    <div class="data-value" id="extraidoPeriodo">--</div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+
+                <!-- Painel de Resultados -->
+                <section class="results-panel" aria-labelledby="resultsPanelTitle">
+                    <article class="results-card" id="resultsCard">
+                        <!-- Estado Vazio (Visível inicialmente) -->
+                        <div class="empty-state" id="emptyState">
+                            <div class="empty-illustration" aria-hidden="true">
+                                <div class="empty-icon">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                                <div class="empty-glow"></div>
+                            </div>
+                            <div class="empty-content">
+                                <h3 class="empty-title">Aguardando Análise</h3>
+                                <p class="empty-description">
+                                    Insira os dados financeiros para visualizar a análise completa do Fator R e otimização tributária.
+                                </p>
+                                <div class="empty-tips">
+                                    <div class="tip-item">
+                                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                                        <span>Cálculo preciso do Fator R</span>
+                                    </div>
+                                    <div class="tip-item">
+                                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                                        <span>Análise de enquadramento tributário</span>
+                                    </div>
+                                    <div class="tip-item">
+                                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                                        <span>Recomendações personalizadas</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Conteúdo dos Resultados (Oculto inicialmente) -->
+                        <div class="results-content" id="resultsContent" hidden>
+                            <!-- Cabeçalho do Resultado -->
+                            <div class="results-header">
+                                <div class="results-title-section">
+                                    <h3 id="resultsPanelTitle" class="results-title">
+                                        <i class="fas fa-chart-bar" aria-hidden="true"></i>
+                                        Resultado da Análise
+                                    </h3>
+                                    <div class="results-subtitle">Análise tributária completa baseada nos dados informados</div>
+                                </div>
+                                
+                                <div class="factor-display">
+                                    <div class="factor-value-container">
+                                        <div class="factor-value" id="valorFatorR" aria-live="polite">0,00%</div>
+                                        <div class="factor-label">Fator R Calculado</div>
+                                    </div>
+                                    
+                                    <div class="annex-badges">
+                                        <span class="annex-badge annex-iii" id="badgeAnexoIII" hidden>
+                                            <i class="fas fa-check-circle" aria-hidden="true"></i>
+                                            ANEXO III
+                                        </span>
+                                        <span class="annex-badge annex-v" id="badgeAnexoV" hidden>
+                                            <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                                            ANEXO V
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="input-group">
-                                <label class="input-label">
-                                    Folha de Pagamento
-                                    <i class="fas fa-info-circle info-icon" title="Inclui salários, pró-labore e encargos sociais"></i>
-                                </label>
-                                <div class="input-wrapper">
-                                    <input type="text" class="input-field" id="folhaInput" placeholder="0,00" inputmode="decimal">
-                                    <span class="currency-symbol">R$</span>
+                            <!-- Métricas Principais -->
+                            <div class="metrics-grid">
+                                <div class="metric-card">
+                                    <div class="metric-icon" aria-hidden="true">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                    </div>
+                                    <div class="metric-content">
+                                        <div class="metric-value" id="metricReceita">R$ 0,00</div>
+                                        <div class="metric-label">Receita Bruta</div>
+                                    </div>
+                                    <span class="metric-tag tag-info">12 meses</span>
                                 </div>
-                                <div class="input-helper">Digite o valor (ex: 8.400,00)</div>
+                                
+                                <div class="metric-card">
+                                    <div class="metric-icon" aria-hidden="true">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="metric-content">
+                                        <div class="metric-value" id="metricFolha">R$ 0,00</div>
+                                        <div class="metric-label">Folha de Pagamento</div>
+                                    </div>
+                                    <span class="metric-tag tag-info">Total encargos</span>
+                                </div>
+                                
+                                <div class="metric-card">
+                                    <div class="metric-icon" aria-hidden="true">
+                                        <i class="fas fa-percentage"></i>
+                                    </div>
+                                    <div class="metric-content">
+                                        <div class="metric-value" id="metricProporcao">0,00%</div>
+                                        <div class="metric-label">Proporção Fator R</div>
+                                    </div>
+                                    <span class="metric-tag tag-success" id="metricDiferenca">Em análise</span>
+                                </div>
+                                
+                                <div class="metric-card">
+                                    <div class="metric-icon" aria-hidden="true">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div class="metric-content">
+                                        <div class="metric-value" id="metricAliquota">0,00%</div>
+                                        <div class="metric-label">Alíquota Efetiva</div>
+                                    </div>
+                                    <span class="metric-tag tag-warning" id="metricEconomia">Calculando...</span>
+                                </div>
+                            </div>
+
+                            <!-- Análise Detalhada -->
+                            <div class="analysis-section">
+                                <div class="analysis-header">
+                                    <div class="analysis-icon" aria-hidden="true">
+                                        <i class="fas fa-search-dollar"></i>
+                                    </div>
+                                    <h4 class="analysis-title" id="tituloAnalise">Análise do Enquadramento Tributário</h4>
+                                </div>
+                                <div class="analysis-content">
+                                    <p class="analysis-text" id="textoAnalise">
+                                        Insira os dados financeiros para visualizar a análise personalizada do seu enquadramento no Simples Nacional.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Visualização de Progresso -->
+                            <div class="progress-visualization">
+                                <div class="progress-header">
+                                    <h5 class="progress-title">Posicionamento do Fator R</h5>
+                                    <div class="progress-value" id="posicaoAtual">Aguardando cálculo</div>
+                                </div>
+                                
+                                <div class="progress-track">
+                                    <div class="progress-fill" id="barraProgresso" style="width: 0%"></div>
+                                    <div class="progress-marker" style="left: 28%" data-tooltip="Limite do Anexo III (28%)">
+                                        <div class="marker-dot"></div>
+                                        <div class="marker-label">28%</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="progress-labels">
+                                    <div class="progress-label">
+                                        <span class="label-text">Anexo V</span>
+                                        <span class="label-percentage">0%</span>
+                                    </div>
+                                    <div class="progress-label">
+                                        <span class="label-text">Zona de Transição</span>
+                                        <span class="label-percentage">14%</span>
+                                    </div>
+                                    <div class="progress-label">
+                                        <span class="label-text">Anexo III</span>
+                                        <span class="label-percentage">28%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Recomendações Estratégicas -->
+                            <div class="recommendations-section">
+                                <div class="section-header">
+                                    <h4 class="section-title">
+                                        <i class="fas fa-lightbulb" aria-hidden="true"></i>
+                                        Recomendações Estratégicas
+                                    </h4>
+                                    <div class="section-subtitle">Ações para otimização tributária</div>
+                                </div>
+                                
+                                <div class="recommendations-grid">
+                                    <div class="recommendation-card">
+                                        <div class="recommendation-icon icon-success" aria-hidden="true">
+                                            <i class="fas fa-chart-line"></i>
+                                        </div>
+                                        <div class="recommendation-content">
+                                            <h5 class="recommendation-title" id="tituloRec1">Otimização Tributária</h5>
+                                            <p class="recommendation-text" id="textoRec1">
+                                                Aguardando dados para recomendações personalizadas.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="recommendation-card">
+                                        <div class="recommendation-icon icon-warning" aria-hidden="true">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </div>
+                                        <div class="recommendation-content">
+                                            <h5 class="recommendation-title" id="tituloRec2">Gestão de Prazos</h5>
+                                            <p class="recommendation-text" id="textoRec2">
+                                                Aguardando dados para recomendações de cronograma.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="recommendation-card">
+                                        <div class="recommendation-icon icon-info" aria-hidden="true">
+                                            <i class="fas fa-balance-scale"></i>
+                                        </div>
+                                        <div class="recommendation-content">
+                                            <h5 class="recommendation-title" id="tituloRec3">Estratégia Fiscal</h5>
+                                            <p class="recommendation-text" id="textoRec3">
+                                                Aguardando dados para recomendações estratégicas.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ações -->
+                            <div class="actions-section">
+                                <div class="actions-header">
+                                    <h5 class="actions-title">Exportar Resultados</h5>
+                                    <div class="actions-subtitle">Compartilhe ou salve sua análise</div>
+                                </div>
+                                
+                                <div class="actions-grid">
+                                    <button type="button"
+                                            class="action-button secondary-button"
+                                            onclick="limparCalculadora()"
+                                            aria-label="Reiniciar calculadora">
+                                        <i class="fas fa-redo" aria-hidden="true"></i>
+                                        <span>Reiniciar</span>
+                                    </button>
+                                    
+                                    <button type="button"
+                                            class="action-button primary-button"
+                                            onclick="gerarRelatorioPDF()"
+                                            aria-label="Exportar relatório em PDF">
+                                        <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                                        <span>PDF</span>
+                                    </button>
+                                    
+                                    <button type="button"
+                                            class="action-button outline-button"
+                                            onclick="salvarAnalise()"
+                                            aria-label="Salvar análise atual">
+                                        <i class="fas fa-save" aria-hidden="true"></i>
+                                        <span>Salvar</span>
+                                    </button>
+                                    
+                                    <button type="button"
+                                            class="action-button outline-button"
+                                            onclick="compartilharAnalise()"
+                                            aria-label="Compartilhar análise">
+                                        <i class="fas fa-share-alt" aria-hidden="true"></i>
+                                        <span>Compartilhar</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <button class="calculate-btn" onclick="calcularFatorR()">
-                        <i class="fas fa-calculator"></i>
-                        Calcular Fator R
-                    </button>
-
-                    <!-- Loading -->
-                    <div class="loading" id="loading">
-                        <div class="spinner"></div>
-                        <p>Processando arquivo PDF...</p>
-                    </div>
-
-                    <!-- Dados Extraídos -->
-                    <div class="extracted-data" id="extractedData" style="display: none;">
-                        <div style="font-weight: 600; margin-bottom: 12px; color: var(--primary);">
-                            <i class="fas fa-check-circle"></i>
-                            Dados extraídos do extrato
-                        </div>
-                        <div class="data-item">
-                            <span>Receita Bruta (12 meses):</span>
-                            <span id="extractedReceita">R$ 0,00</span>
-                        </div>
-                        <div class="data-item">
-                            <span>Folha de Pagamento (12 meses):</span>
-                            <span id="extractedFolha">R$ 0,00</span>
-                        </div>
-                        <div class="data-item">
-                            <span>Fator R calculado:</span>
-                            <span id="extractedFatorR">0,00</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Resultados -->
-                <div class="result-card">
-                    <div class="result-header">
-                        <div class="fator-r-value" id="fatorRValue">0,0000</div>
-                        <div class="fator-r-label">Fator R</div>
-                        <div class="anexo-badge anexo-iii" id="anexoBadgeIII" style="display: none;">
-                            <i class="fas fa-check-circle"></i>
-                            ANEXO III
-                        </div>
-                        <div class="anexo-badge anexo-v" id="anexoBadgeV" style="display: none;">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            ANEXO V
-                        </div>
-                    </div>
-
-                    <div class="result-details">
-                        <div class="detail-item">
-                            <span class="detail-label">Receita Bruta</span>
-                            <span class="detail-value" id="detailReceita">R$ 0,00</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Folha de Pagamento</span>
-                            <span class="detail-value" id="detailFolha">R$ 0,00</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Proporção</span>
-                            <span class="detail-value" id="detailProporcao">0,00%</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Alíquota Efetiva</span>
-                            <span class="detail-value highlight" id="detailAliquota">0,00%</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Economia/Prejuízo</span>
-                            <span class="detail-value" id="detailEconomia">R$ 0,00</span>
-                        </div>
-                    </div>
-
-                    <div class="analysis-section" id="analysisSection" style="display: none;">
-                        <div class="analysis-title">
-                            <i class="fas fa-chart-line"></i>
-                            <span id="analysisTitle">Análise do Resultado</span>
-                        </div>
-                        <div class="analysis-text" id="analysisText"></div>
-                        
-                        <div class="recommendations" id="recommendationsList">
-                            <!-- Recomendações serão inseridas aqui -->
-                        </div>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="btn btn-outline" onclick="limparCalculadora()">
-                            <i class="fas fa-eraser"></i>
-                            Limpar
-                        </button>
-                        <button class="btn btn-primary" onclick="gerarPDF()" id="btnPDF">
-                            <i class="fas fa-file-pdf"></i>
-                            Baixar PDF
-                        </button>
-                        <button class="btn btn-outline" onclick="salvarCalculo()" id="btnSalvar">
-                            <i class="fas fa-save"></i>
-                            Salvar
-                        </button>
-                        <button class="btn btn-success" onclick="compartilharResultado()" id="btnCompartilhar">
-                            <i class="fas fa-share"></i>
-                            Compartilhar
-                        </button>
-                    </div>
-                </div>
+                    </article>
+                </section>
             </div>
         </main>
+
+        <!-- Footer Premium -->
+        <footer class="site-footer" role="contentinfo">
+            <div class="footer-container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div class="footer-text">
+                            <h4 class="footer-title">Fator R Pro</h4>
+                            <p class="footer-subtitle">Sistema Tributário Inteligente</p>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-info">
+                        <div class="info-item">
+                            <i class="fas fa-lock" aria-hidden="true"></i>
+                            <span>Dados processados localmente - 100% seguro</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-sync-alt" aria-hidden="true"></i>
+                            <span>Atualizado conforme legislação vigente</span>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-copyright">
+                        <p>© 2024 Contabilizatech. Todos os direitos reservados.</p>
+                        <p class="footer-disclaimer">
+                            Este sistema fornece cálculos para fins informativos. Consulte um contador para decisões fiscais.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 
-    <!-- Modal de Upload -->
-    <div class="modal" id="uploadModal">
-        <div class="modal-content">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3>Importar Extrato do Simples Nacional</h3>
-                <button onclick="fecharModal()" style="background: none; border: none; font-size: 20px; cursor: pointer;">×</button>
-            </div>
-            
-            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-                <div class="upload-icon">
-                    <i class="fas fa-file-pdf"></i>
+
+            <!-- Cabeçalho do Modal -->
+            <header class="modal-header">
+                <h2 id="modalTitle" class="modal-title">
+                    <i class="fas fa-file-import" aria-hidden="true"></i>
+                    Importar Extrato do Simples Nacional
+                </h2>
+                <button type="button"
+                        class="modal-close"
+                        onclick="fecharModalUpload()"
+                        aria-label="Fechar modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </header>
+
+            <!-- Corpo do Modal -->
+            <div class="modal-body">
+                <div class="modal-instructions">
+                    <p>Selecione um extrato PDF do Simples Nacional para extrair os dados automaticamente.</p>
+                    <p class="instruction-note">
+                        <i class="fas fa-info-circle" aria-hidden="true"></i>
+                        O sistema identificará automaticamente os valores de receita e folha de pagamento.
+                    </p>
                 </div>
-                <div style="margin-bottom: 16px;">
-                    <h4>Arraste o extrato aqui</h4>
-                    <p>ou clique para selecionar</p>
+
+                <div class="upload-area" 
+                     id="dropArea" 
+                     role="region" 
+                     aria-label="Área de upload de arquivos"
+                     onclick="document.getElementById('fileInput').click()">
+                    <div class="upload-illustration" aria-hidden="true">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="upload-glow"></div>
+                    </div>
+                    <div class="upload-content">
+                        <h3 class="upload-title">Arraste e solte seu arquivo</h3>
+                        <p class="upload-description">Ou clique para selecionar um arquivo PDF (máx. 10MB)</p>
+                        <button type="button" class="upload-button outline-button">
+                            <i class="fas fa-folder-open" aria-hidden="true"></i>
+                            Selecionar Arquivo
+                        </button>
+                    </div>
                 </div>
-                <input type="file" id="fileInput" accept=".pdf" style="display: none;">
-                <div style="font-size: 12px; color: var(--gray-600);">
-                    Suporta: PDF do extrato do Simples Nacional
+
+                <input type="file"
+                       id="fileInput"
+                       class="hidden"
+                       accept=".pdf"
+                       aria-label="Selecionar arquivo PDF"
+                       onchange="previewArquivo(this)">
+
+                <!-- Prévia do Arquivo -->
+                <div class="file-preview" id="filePreview" hidden>
+                    <div class="file-info">
+                        <div class="file-icon-container">
+                            <i class="fas fa-file-pdf file-icon" aria-hidden="true"></i>
+                            <div class="file-status">
+                                <i class="fas fa-check-circle status-icon" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="file-details">
+                            <div class="file-name" id="nomeArquivo">Nenhum arquivo selecionado</div>
+                            <div class="file-meta">
+                                <span class="file-size" id="tamanhoArquivo">--</span>
+                                <span class="file-type">PDF</span>
+                            </div>
+                        </div>
+                        <button type="button"
+                                class="file-remove"
+                                onclick="removerArquivo()"
+                                aria-label="Remover arquivo">
+                            <i class="fas fa-times" aria-hidden="true"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            
-            <div style="margin-top: 20px; padding: 16px; background: var(--gray-50); border-radius: 8px;">
-                <h4 style="margin-bottom: 8px;">Como obter o extrato:</h4>
-                <ol style="padding-left: 20px; color: var(--gray-600); font-size: 14px;">
-                    <li>Acesse o Portal do Simples Nacional</li>
-                    <li>Vá em "Extrato e Demonstrativos"</li>
-                    <li>Selecione o período desejado</li>
-                    <li>Faça o download do PDF</li>
-                </ol>
+
+                <!-- Formatos Suportados -->
+                <div class="supported-formats">
+                    <div class="formats-header">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <h4 class="formats-title">Formatos Suportados</h4>
+                    </div>
+                    <ul class="formats-list" role="list">
+                        <li role="listitem">Extratos oficiais do Simples Nacional</li>
+                        <li role="listitem">DASN-SIMEI (Declaração Anual)</li>
+                        <li role="listitem">Relatórios contábeis exportados</li>
+                    </ul>
+                </div>
             </div>
 
-            <div style="margin-top: 20px; display: flex; gap: 12px;">
-                <button class="btn btn-outline" onclick="fecharModal()" style="flex: 1;">
+            <!-- Rodapé do Modal -->
+            <footer class="modal-footer">
+                <button type="button"
+                        class="modal-button outline-button"
+                        onclick="fecharModalUpload()">
                     Cancelar
                 </button>
-                <button class="btn btn-primary" onclick="processarUpload()" style="flex: 1;">
-                    <i class="fas fa-upload"></i>
-                    Processar
+                <button type="button"
+                        class="modal-button primary-button"
+                        id="btnProcessar"
+                        onclick="processarExtratoPDF()"
+                        disabled>
+                    <i class="fas fa-upload" aria-hidden="true"></i>
+                    Processar Documento
                 </button>
-            </div>
+            </footer>
         </div>
     </div>
 
-    <script>
-        // ===== SISTEMA DE FORMATAÇÃO DE MOEDA =====
-        class FormatadorMoeda {
-            static formatarParaInput(valor) {
-                let numeros = valor.replace(/\D/g, '');
-                if (numeros === '') return '0,00';
-                let numero = parseInt(numeros) / 100;
-                return this.formatarNumero(numero);
-            }
 
-            static formatarNumero(valor) {
-                return new Intl.NumberFormat('pt-BR', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                }).format(valor);
-            }
+    <!-- Container de Notificações -->
+    <div id="notificationContainer" class="notifications-container" role="alert" aria-live="assertive"></div>
 
-            static parsearParaNumero(valorFormatado) {
-                let numero = valorFormatado.replace(/\./g, '').replace(',', '.');
-                return parseFloat(numero);
-            }
-
-            static formatarMoeda(valor) {
-                return new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL'
-                }).format(valor);
-            }
-        }
-
-        // ===== PROCESSADOR DE EXTRATO PDF =====
-        class ProcessadorExtrato {
-            static extrairDadosDoTexto(texto) {
-                console.log('Processando extrato...', texto);
-                
-                // Extrair receitas dos últimos 12 meses
-                const receitas = this.extrairReceitas(texto);
-                const receitaTotal = receitas.reduce((sum, val) => sum + val, 0);
-                
-                // Extrair folha de pagamento
-                const folhaTotal = this.extrairFolhaPagamento(texto);
-                
-                // Extrair Fator R atual do extrato
-                const fatorRExtrato = this.extrairFatorR(texto);
-                
-                return {
-                    receita: receitaTotal,
-                    folha: folhaTotal,
-                    fatorRExtrato: fatorRExtrato,
-                    receitasMensais: receitas
-                };
-            }
-
-            static extrairReceitas(texto) {
-                // Procura pelo padrão de receitas mensais
-                const regex = /(\d{1,2}\/\d{4})\s+([\d.,]+)/g;
-                const matches = [];
-                let match;
-                
-                while ((match = regex.exec(texto)) !== null) {
-                    const valor = parseFloat(match[2].replace('.', '').replace(',', '.'));
-                    if (!isNaN(valor)) {
-                        matches.push({ mes: match[1], valor: valor });
-                    }
-                }
-                
-                // Pega os últimos 12 meses válidos
-                const ultimos12Meses = matches.slice(-12);
-                return ultimos12Meses.map(item => item.valor);
-            }
-
-            static extrairFolhaPagamento(texto) {
-                // Procura pelo total da folha de salários
-                const regex = /Total de Folhas de Salários Anteriores.*?R\$\s*([\d.,]+)/i;
-                const match = texto.match(regex);
-                
-                if (match && match[1]) {
-                    return parseFloat(match[1].replace('.', '').replace(',', '.'));
-                }
-                
-                // Fallback: soma dos valores mensais de folha
-                const regexMensal = /(\d{1,2}\/\d{4})\s+([\d.,]+)(?=\s+\d{1,2}\/\d{4})/g;
-                const folhas = [];
-                let matchFolha;
-                
-                while ((matchFolha = regexMensal.exec(texto)) !== null) {
-                    const valor = parseFloat(matchFolha[2].replace('.', '').replace(',', '.'));
-                    if (!isNaN(valor)) {
-                        folhas.push(valor);
-                    }
-                }
-                
-                // Pega os últimos 12 meses e soma
-                const ultimas12Folhas = folhas.slice(-12);
-                return ultimas12Folhas.reduce((sum, val) => sum + val, 0);
-            }
-
-            static extrairFatorR(texto) {
-                // Procura pelo Fator R calculado no extrato
-                const regex = /Fator r\s*=\s*([\d,]+)/i;
-                const match = texto.match(regex);
-                
-                if (match && match[1]) {
-                    return parseFloat(match[1].replace(',', '.'));
-                }
-                return null;
-            }
-        }
-
-        // ===== SISTEMA DA CALCULADORA CORRIGIDO =====
-        class CalculadoraFatorR {
-            constructor() {
-                this.dados = {
-                    receita: 0,
-                    folha: 0,
-                    fatorR: 0,
-                    anexo: '',
-                    aliquota: 0,
-                    economia: 0
-                };
-            }
-
-            calcular(receita, folha) {
-                if (!receita || !folha || receita === '0,00' || folha === '0,00') {
-                    this.mostrarErro('Preencha ambos os campos com valores válidos');
-                    return null;
-                }
-
-                // Converte valores formatados para número
-                receita = FormatadorMoeda.parsearParaNumero(receita);
-                folha = FormatadorMoeda.parsearParaNumero(folha);
-
-                if (isNaN(receita) || isNaN(folha)) {
-                    this.mostrarErro('Digite valores numéricos válidos');
-                    return null;
-                }
-
-                if (folha > receita) {
-                    this.mostrarErro('A folha de pagamento não pode ser maior que a receita bruta');
-                    return null;
-                }
-
-                if (receita <= 0 || folha <= 0) {
-                    this.mostrarErro('Os valores devem ser maiores que zero');
-                    return null;
-                }
-
-                // CÁLCULO CORRETO DO FATOR R - FÓRMULA: Folha ÷ Receita
-                this.dados.receita = receita;
-                this.dados.folha = folha;
-                this.dados.fatorR = folha / receita;
-                
-                // CORREÇÃO: Anexo III quando Fator R > 0.28 (28%)
-                this.dados.anexo = this.dados.fatorR > 0.28 ? 'III' : 'V';
-                
-                // Cálculo preciso da alíquota
-                this.dados.aliquota = this.calcularAliquotaEfetiva(receita, this.dados.anexo);
-                
-                // Cálculo da economia/prejuízo
-                this.dados.economia = this.calcularEconomia(receita, this.dados.anexo);
-
-                return this.dados;
-            }
-
-            calcularAliquotaEfetiva(receita, anexo) {
-                // TABELAS OFICIAIS DO SIMPLES NACIONAL 2024
-                const tabelas = {
-                    'III': [
-                        { limite: 180000, aliquota: 0.06 },
-                        { limite: 360000, aliquota: 0.112 },
-                        { limite: 720000, aliquota: 0.135 },
-                        { limite: 1800000, aliquota: 0.16 },
-                        { limite: 3600000, aliquota: 0.21 },
-                        { limite: 4800000, aliquota: 0.33 }
-                    ],
-                    'V': [
-                        { limite: 180000, aliquota: 0.155 },
-                        { limite: 360000, aliquota: 0.18 },
-                        { limite: 720000, aliquota: 0.195 },
-                        { limite: 1800000, aliquota: 0.205 },
-                        { limite: 3600000, aliquota: 0.23 },
-                        { limite: 4800000, aliquota: 0.305 }
-                    ]
-                };
-
-                const tabela = tabelas[anexo];
-                for (let i = 0; i < tabela.length; i++) {
-                    if (receita <= tabela[i].limite) {
-                        return tabela[i].aliquota;
-                    }
-                }
-                return tabela[tabela.length - 1].aliquota;
-            }
-
-            calcularEconomia(receita, anexoAtual) {
-                const aliquotaIII = this.calcularAliquotaEfetiva(receita, 'III');
-                const aliquotaV = this.calcularAliquotaEfetiva(receita, 'V');
-                
-                if (anexoAtual === 'III') {
-                    // Economia por estar no Anexo III
-                    return (aliquotaV - aliquotaIII) * receita;
-                } else {
-                    // Prejuízo por estar no Anexo V
-                    return (aliquotaIII - aliquotaV) * receita;
-                }
-            }
-
-            gerarAnalise(dados) {
-                if (dados.anexo === 'III') {
-                    return {
-                        titulo: '✅ Situação Otimizada',
-                        texto: `Sua empresa está no <strong>Anexo III</strong> com alíquota efetiva de <strong>${this.formatarPercentual(dados.aliquota)}</strong>.`,
-                        tipo: 'success'
-                    };
-                } else {
-                    return {
-                        titulo: '⚠️ Atenção: Anexo V',
-                        texto: `Sua empresa está no <strong>Anexo V</strong> com alíquota de <strong>${this.formatarPercentual(dados.aliquota)}</strong>.`,
-                        tipo: 'warning'
-                    };
-                }
-            }
-
-            gerarRecomendacoes(dados) {
-                const recomendacoes = [];
-
-                if (dados.anexo === 'V') {
-                    // CORREÇÃO: Calcular folha necessária corretamente
-                    const folhaNecessaria = (dados.receita * 0.28) - dados.folha;
-                    
-                    if (folhaNecessaria > 0) {
-                        recomendacoes.push({
-                            icon: 'fa-user-plus',
-                            text: `Contratar mais <strong>${FormatadorMoeda.formatarMoeda(folhaNecessaria)}</strong> em folha de pagamento para atingir o Anexo III`
-                        });
-                    }
-
-                    recomendacoes.push({
-                        icon: 'fa-money-bill-wave',
-                        text: 'Aumentar pró-labore dos sócios dentro dos limites legais'
-                    });
-
-                    recomendacoes.push({
-                        icon: 'fa-chart-line',
-                        text: `Economia potencial: <strong>${FormatadorMoeda.formatarMoeda(Math.abs(dados.economia))}</strong> por ano no Anexo III`
-                    });
-                } else {
-                    const margem = dados.fatorR - 0.28;
-                    
-                    if (margem < 0.03) {
-                        recomendacoes.push({
-                            icon: 'fa-exclamation-triangle',
-                            text: 'Mantenha a folha de pagamento estável - você está próximo do limite'
-                        });
-                    }
-
-                    recomendacoes.push({
-                        icon: 'fa-piggy-bank',
-                        text: `Você economiza <strong>${FormatadorMoeda.formatarMoeda(dados.economia)}</strong> por ano no Anexo III`
-                    });
-                }
-
-                recomendacoes.push({
-                    icon: 'fa-calendar-check',
-                    text: 'Monitore mensalmente o Fator R para evitar mudanças surpresa'
-                });
-
-                return recomendacoes;
-            }
-
-            formatarPercentual(valor) {
-                return new Intl.NumberFormat('pt-BR', {
-                    style: 'percent',
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                }).format(valor);
-            }
-
-            mostrarErro(mensagem) {
-                alert('❌ ' + mensagem);
-            }
-        }
-
-        // ===== GERADOR DE PDF PROFISSIONAL =====
-        class GeradorPDF {
-            static gerarRelatorio(dados) {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                
-                // Cabeçalho
-                doc.setFillColor(26, 115, 232);
-                doc.rect(0, 0, 210, 30, 'F');
-                doc.setTextColor(255, 255, 255);
-                doc.setFontSize(20);
-                doc.text('RELATÓRIO FATOR R', 105, 20, { align: 'center' });
-                
-                // Data
-                doc.setTextColor(100, 100, 100);
-                doc.setFontSize(10);
-                doc.text(`Emitido em: ${new Date().toLocaleDateString('pt-BR')}`, 15, 40);
-                
-                // Resultado Principal
-                doc.setTextColor(0, 0, 0);
-                doc.setFontSize(16);
-                doc.text('RESULTADO DO CÁLCULO', 15, 60);
-                
-                doc.setFontSize(12);
-                let y = 75;
-                
-                doc.text(`Fator R Calculado: ${dados.fatorR.toFixed(4)}`, 20, y);
-                y += 10;
-                doc.text(`Anexo: ${dados.anexo}`, 20, y);
-                y += 10;
-                doc.text(`Receita Bruta (12 meses): ${FormatadorMoeda.formatarMoeda(dados.receita)}`, 20, y);
-                y += 10;
-                doc.text(`Folha de Pagamento: ${FormatadorMoeda.formatarMoeda(dados.folha)}`, 20, y);
-                y += 10;
-                doc.text(`Alíquota Efetiva: ${(dados.aliquota * 100).toFixed(2)}%`, 20, y);
-                y += 10;
-                
-                const economiaTexto = dados.economia >= 0 ? 
-                    `Economia Anual: ${FormatadorMoeda.formatarMoeda(dados.economia)}` :
-                    `Prejuízo Anual: ${FormatadorMoeda.formatarMoeda(Math.abs(dados.economia))}`;
-                
-                doc.text(economiaTexto, 20, y);
-                y += 20;
-                
-                // Análise
-                doc.setFontSize(14);
-                doc.text('ANÁLISE E RECOMENDAÇÕES', 15, y);
-                y += 15;
-                
-                doc.setFontSize(10);
-                const analise = dados.anexo === 'III' ? 
-                    'Sua empresa está em situação otimizada no Anexo III.' :
-                    'Sua empresa está no Anexo V. Considere estratégias para atingir o Anexo III.';
-                
-                doc.text(analise, 20, y, { maxWidth: 170 });
-                y += 20;
-                
-                // Limite do Anexo
-                doc.setFontSize(12);
-                doc.text('INFORMAÇÕES IMPORTANTES:', 15, y);
-                y += 10;
-                
-                doc.setFontSize(10);
-                doc.text('• Limite para Anexo III: Fator R > 0,28 (28%)', 20, y);
-                y += 7;
-                doc.text('• Fórmula: Folha de Pagamento ÷ Receita Bruta', 20, y);
-                y += 7;
-                doc.text('• Período considerado: Últimos 12 meses', 20, y);
-                
-                // Rodapé
-                doc.setFontSize(8);
-                doc.setTextColor(100, 100, 100);
-                doc.text('Relatório gerado pelo Sistema Fator R Pro - www.fatorrpro.com.br', 105, 290, { align: 'center' });
-                
-                return doc;
-            }
-        }
-
-        // ===== INSTÂNCIA E FUNÇÕES GLOBAIS =====
-        const calculadora = new CalculadoraFatorR();
-
-        // Formatação automática dos campos de entrada
-        function configurarFormatacaoInput() {
-            const inputs = ['receitaInput', 'folhaInput'];
-            
-            inputs.forEach(id => {
-                const input = document.getElementById(id);
-                
-                input.addEventListener('input', function(e) {
-                    let valor = e.target.value;
-                    
-                    // Permite backspace e delete
-                    if (e.inputType === 'deleteContentBackward' || e.inputType === 'deleteContentForward') {
-                        return;
-                    }
-                    
-                    // Formata o valor
-                    e.target.value = FormatadorMoeda.formatarParaInput(valor);
-                });
-
-                input.addEventListener('blur', function(e) {
-                    if (e.target.value === '') {
-                        e.target.value = '0,00';
-                    }
-                });
-
-                input.addEventListener('focus', function(e) {
-                    if (e.target.value === '0,00') {
-                        e.target.value = '';
-                    }
-                });
-            });
-        }
-
-        function calcularFatorR() {
-            const receita = document.getElementById('receitaInput').value;
-            const folha = document.getElementById('folhaInput').value;
-
-            const resultado = calculadora.calcular(receita, folha);
-            
-            if (resultado) {
-                atualizarResultados(resultado);
-            }
-        }
-
-        function atualizarResultados(dados) {
-            // Valores principais
-            document.getElementById('fatorRValue').textContent = dados.fatorR.toFixed(4);
-            document.getElementById('detailReceita').textContent = FormatadorMoeda.formatarMoeda(dados.receita);
-            document.getElementById('detailFolha').textContent = FormatadorMoeda.formatarMoeda(dados.folha);
-            document.getElementById('detailProporcao').textContent = calculadora.formatarPercentual(dados.fatorR);
-            document.getElementById('detailAliquota').textContent = calculadora.formatarPercentual(dados.aliquota);
-            
-            // Economia/Prejuízo
-            const economiaElem = document.getElementById('detailEconomia');
-            if (dados.economia >= 0) {
-                economiaElem.textContent = '+' + FormatadorMoeda.formatarMoeda(dados.economia);
-                economiaElem.className = 'detail-value success';
-            } else {
-                economiaElem.textContent = FormatadorMoeda.formatarMoeda(dados.economia);
-                economiaElem.className = 'detail-value danger';
-            }
-
-            // Anexo
-            document.getElementById('anexoBadgeIII').style.display = dados.anexo === 'III' ? 'inline-flex' : 'none';
-            document.getElementById('anexoBadgeV').style.display = dados.anexo === 'V' ? 'inline-flex' : 'none';
-
-            // Análise
-            const analise = calculadora.gerarAnalise(dados);
-            document.getElementById('analysisTitle').innerHTML = analise.titulo;
-            document.getElementById('analysisText').innerHTML = analise.texto;
-            document.getElementById('analysisSection').style.display = 'block';
-
-            // Recomendações
-            const recomendacoes = calculadora.gerarRecomendacoes(dados);
-            const recommendationsList = document.getElementById('recommendationsList');
-            recommendationsList.innerHTML = '';
-
-            recomendacoes.forEach(rec => {
-                const div = document.createElement('div');
-                div.className = 'recommendation-item';
-                div.innerHTML = `
-                    <i class="fas ${rec.icon} recommendation-icon"></i>
-                    <span>${rec.text}</span>
-                `;
-                recommendationsList.appendChild(div);
-            });
-        }
-
-        function limparCalculadora() {
-            document.getElementById('receitaInput').value = '0,00';
-            document.getElementById('folhaInput').value = '0,00';
-            document.getElementById('fatorRValue').textContent = '0,0000';
-            document.getElementById('detailReceita').textContent = 'R$ 0,00';
-            document.getElementById('detailFolha').textContent = 'R$ 0,00';
-            document.getElementById('detailProporcao').textContent = '0,00%';
-            document.getElementById('detailAliquota').textContent = '0,00%';
-            document.getElementById('detailEconomia').textContent = 'R$ 0,00';
-            document.getElementById('anexoBadgeIII').style.display = 'none';
-            document.getElementById('anexoBadgeV').style.display = 'none';
-            document.getElementById('analysisSection').style.display = 'none';
-            document.getElementById('extractedData').style.display = 'none';
-        }
-
-        function gerarPDF() {
-            const receita = FormatadorMoeda.parsearParaNumero(document.getElementById('receitaInput').value);
-            const folha = FormatadorMoeda.parsearParaNumero(document.getElementById('folhaInput').value);
-            
-            if (!receita || !folha) {
-                alert('Calcule primeiro para gerar o PDF');
-                return;
-            }
-
-            const dados = calculadora.calcular(
-                document.getElementById('receitaInput').value,
-                document.getElementById('folhaInput').value
-            );
-
-            const doc = GeradorPDF.gerarRelatorio(dados);
-            doc.save(`relatorio-fator-r-${new Date().toISOString().split('T')[0]}.pdf`);
-            
-            alert('✅ PDF gerado com sucesso!');
-        }
-
-        function salvarCalculo() {
-            const calculo = {
-                receita: document.getElementById('receitaInput').value,
-                folha: document.getElementById('folhaInput').value,
-                fatorR: document.getElementById('fatorRValue').textContent,
-                timestamp: new Date().toISOString()
-            };
-            
-            localStorage.setItem('ultimoCalculo', JSON.stringify(calculo));
-            alert('💾 Cálculo salvo com sucesso!');
-        }
-
-        function compartilharResultado() {
-            const fatorR = document.getElementById('fatorRValue').textContent;
-            const anexo = document.getElementById('anexoBadgeIII').style.display !== 'none' ? 'III' : 'V';
-            
-            const texto = `📊 Resultado Fator R: ${fatorR} (Anexo ${anexo}) - Calculado no Fator R Pro`;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Resultado Fator R',
-                    text: texto
-                });
-            } else {
-                navigator.clipboard.writeText(texto).then(() => {
-                    alert('📋 Resultado copiado para a área de transferência!');
-                });
-            }
-        }
-
-        function abrirUpload() {
-            document.getElementById('uploadModal').classList.add('active');
-        }
-
-        function fecharModal() {
-            document.getElementById('uploadModal').classList.remove('active');
-        }
-
-        function processarUpload() {
-            const fileInput = document.getElementById('fileInput');
-            
-            if (fileInput.files.length === 0) {
-                alert('❌ Selecione um arquivo PDF primeiro');
-                return;
-            }
-
-            const file = fileInput.files[0];
-            
-            if (file.type !== 'application/pdf') {
-                alert('❌ Por favor, selecione um arquivo PDF');
-                return;
-            }
-
-            // Mostrar loading
-            document.getElementById('loading').style.display = 'block';
-            fecharModal();
-
-            // Simular processamento do PDF
-            setTimeout(() => {
-                document.getElementById('loading').style.display = 'none';
-                
-                // Dados reais extraídos do seu extrato
-                const dadosExtrato = {
-                    receita: 248780, // Soma das receitas dos últimos 12 meses
-                    folha: 63888,    // Total da folha (63.888,00)
-                    fatorRExtrato: 0.22 // Fator R do extrato
-                };
-                
-                // Preencher campos com dados reais
-                document.getElementById('receitaInput').value = FormatadorMoeda.formatarNumero(dadosExtrato.receita);
-                document.getElementById('folhaInput').value = FormatadorMoeda.formatarNumero(dadosExtrato.folha);
-                
-                // Mostrar dados extraídos
-                document.getElementById('extractedReceita').textContent = FormatadorMoeda.formatarMoeda(dadosExtrato.receita);
-                document.getElementById('extractedFolha').textContent = FormatadorMoeda.formatarMoeda(dadosExtrato.folha);
-                document.getElementById('extractedFatorR').textContent = dadosExtrato.fatorRExtrato.toFixed(2);
-                document.getElementById('extractedData').style.display = 'block';
-                
-                alert('✅ Dados extraídos do PDF com sucesso!');
-                calcularFatorR();
-            }, 2000);
-        }
-
-        // ===== INICIALIZAÇÃO =====
-        document.addEventListener('DOMContentLoaded', function() {
-            configurarFormatacaoInput();
-            
-            document.getElementById('receitaInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') calcularFatorR();
-            });
-            
-            document.getElementById('folhaInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') calcularFatorR();
-            });
-
-            const ultimoCalculo = localStorage.getItem('ultimoCalculo');
-            if (ultimoCalculo) {
-                const calculo = JSON.parse(ultimoCalculo);
-                document.getElementById('receitaInput').value = calculo.receita;
-                document.getElementById('folhaInput').value = calculo.folha;
-            }
-
-            document.getElementById('receitaInput').focus();
-        });
-    </script>
+    <!-- Scripts -->
+    <script src="calculadora.js" defer></script>
 </body>
 </html>
